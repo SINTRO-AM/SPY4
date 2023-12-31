@@ -25,6 +25,7 @@ def start_end_date(button_id):
         'btn-4yr': dt.timedelta(days=365 * 4),
         'btn-5yr': dt.timedelta(days=365 * 5),
         'btn-YtD': 'ytd',
+        'btn-Live': 'Live',
         'btn-max': 'total'  # Total period since 01-01-2000
     }
 
@@ -34,7 +35,7 @@ def start_end_date(button_id):
             now = dt.datetime.now()
             start_date = dt.datetime(now.year, 1, 1)  # First day of current year
         elif button_map[button_id] == 'Live':
-            start_date = dt.datetime(2023, 8, 1)  # Inception Date
+            start_date = dt.datetime(2023, 6, 28)  # Inception Date
         elif button_map[button_id] == 'total':
             start_date = dt.datetime(2000, 1, 1)  # January 1, 2000
         else:
@@ -383,9 +384,9 @@ def create_results_df(df):
     return results_data, results_columns
 
 def current_results_df(df):
-    Inception_price = 448
+    Inception_price = 435
     Buy_Price = 435  # Durchschnittlicher Kaufpreis
-    inception_date = dt.datetime(2023, 8, 1)
+    inception_date = dt.datetime(2023, 6, 28)
     end_date = dt.datetime.now()
     n_days_since_inception = (end_date - inception_date).days
     current_spy_price = df['Close'].iloc[-1]
