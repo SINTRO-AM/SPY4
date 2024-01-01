@@ -4,13 +4,12 @@ from dash import html, dcc, Input, Output, dash_table
 import plotly.express as px
 import pandas as pd
 import numpy as np
-import datetime as dt
 import os
 import flask
+import datetime as dt
 
 # selfwritten functions
-from SPY3_functions import start_end_date, create_performance_graph, fetch_and_process_data, get_clicked_button_id, create_price_and_var_graph, create_results_df, current_results_df, Alpha,maxDD
-
+from SPY4_functions import start_end_date, create_performance_graph, fetch_and_process_data, get_clicked_button_id, create_price_and_var_graph, Alpha, maxDD, create_results_df
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
@@ -20,7 +19,7 @@ app.layout = html.Div([
     html.Div(
     children=[
         html.H1(
-            children='SPY3 Performance Dashboard',
+            children='SPY4 Performance Dashboard',
             className='dashboard-header'
                 )
             ],
@@ -49,7 +48,7 @@ app.layout = html.Div([
                 html.Button('4 Jahre', id='btn-4yr', n_clicks=0, className='time-filter-btn'),
                 html.Button('5 Jahre', id='btn-5yr', n_clicks=0, className='time-filter-btn'),
                 html.Button('Max', id='btn-max', n_clicks=0, className='time-filter-btn')
-            ], className='button-container'),    
+            ], className='button-container'),     
         html.Div([
             html.Div([dcc.Graph(id='performance-graph',style={'height': '75vh'})], className='graph-container'),
             html.Div([
@@ -95,20 +94,14 @@ app.layout = html.Div([
         ], className='row-flex'),
     ], className='performance_container'),
 
-    html.Div([ 
-
-
-    dcc.Graph(id='price-and-var-graph', style={'height': '90vh'}),
-])])
-
+        dcc.Graph(id='price-and-var-graph', style={'height': '90vh'}),
+])
 # Define the callback
 @app.callback(
     [Output('performance-graph', 'figure'),
      Output('price-and-var-graph', 'figure'),
      Output('table', 'data'),  # Daten für die DataTable
      Output('table', 'columns'),
-     Output('current-results-table', 'data'),  # Daten für die neue DataTable
-     Output('current-results-table', 'columns'),
      Output('Alpha', 'figure'),
      Output('maxDD', 'figure')]     ,
     [Input('index-selector', 'value'),
@@ -134,10 +127,10 @@ def update_graph(selected_index, Live, btn_YtD, btn_1yr, btn_2yr, btn_4yr, btn_5
     figure_prices_and_var = create_price_and_var_graph(df)
     results_data, results_columns = create_results_df(df)
 
-    current_results_data, current_results_columns = current_results_df(df)
     Alpha_figure = Alpha(df)
     max_dd_figure = maxDD(df)
-    return [figure_performance,figure_prices_and_var,results_data, results_columns, current_results_data, current_results_columns, Alpha_figure, max_dd_figure]
+    return [figure_performance,figure_prices_and_var,results_data, results_columns, Alpha_figure, max_dd_figure]
+
 
 # Run the app
 if __name__ == '__main__':
