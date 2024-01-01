@@ -213,7 +213,7 @@ def create_performance_graph(df):
     # Creating the figure and adding traces with updated style
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df['Date'], y=df['SPX_Total_Return'], mode='lines', name='S&P500 Total Return', line=dict(color="darkgrey", width=2.5)))
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['Total_Return'], mode='lines', name='SPY3 Total Return', line=dict(color="#1f77b4", width=2.5)))  # dark blue
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['Total_Return'], mode='lines', name='SPY4 Total Return', line=dict(color="#1f77b4", width=2.5)))  # dark blue
 
     # Update the layout with style elements
     fig.update_layout(
@@ -247,7 +247,7 @@ def Alpha(df):
 
 def maxDD(df):
     # Define traces for maximum drawdowns
-    trace_max_dd_spy3 = go.Scatter(x=df['Date'], y=df['DD_SPY3'], mode='lines', name='Max Drawdown SPY3', line=dict(color="#4472C4"))
+    trace_max_dd_spy3 = go.Scatter(x=df['Date'], y=df['DD_SPY3'], mode='lines', name='Max Drawdown SPY4', line=dict(color="#4472C4"))
     trace_max_dd_spy = go.Scatter(x=df['Date'], y=df['DD_SPY'], mode='lines', name='Max Drawdown SPY', line=dict(color="grey"))
 
     # Define the layout with style elements
@@ -369,7 +369,7 @@ def create_results_df(df):
 
     results_df = pd.DataFrame({
         'Metric': ['Annual Return in %', 'Annual STD in %', 'Sharpe Ratio', 'max DD in %'],
-        'SPY3': [annual_return_pf, annual_std_pf, sharpe_ratio_pf, DD_SPY3],
+        'SPY4': [annual_return_pf, annual_std_pf, sharpe_ratio_pf, DD_SPY3],
         'SPY': [annual_return_bmk, annual_std_bmk, sharpe_ratio_bmk, DD_SPY]
     })
 
