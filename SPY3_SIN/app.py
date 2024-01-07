@@ -5,6 +5,8 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 import datetime as dt
+import os
+import flask
 
 # selfwritten functions
 from SPY3_functions import start_end_date, create_performance_graph, fetch_and_process_data, get_clicked_button_id, create_price_and_var_graph, create_results_df, current_results_df, Alpha,maxDD
@@ -46,10 +48,10 @@ app.layout = html.Div([
                 html.Button('2 Jahre', id='btn-2yr', n_clicks=0, className='time-filter-btn'),
                 html.Button('4 Jahre', id='btn-4yr', n_clicks=0, className='time-filter-btn'),
                 html.Button('5 Jahre', id='btn-5yr', n_clicks=0, className='time-filter-btn'),
-                html.Button('Reset', id='btn-max', n_clicks=0, className='time-filter-btn')
+                html.Button('Max', id='btn-max', n_clicks=0, className='time-filter-btn')
             ], className='button-container'),    
         html.Div([
-            html.Div([dcc.Graph(id='performance-graph',style={'height': '74vh'})], className='graph-container'),
+            html.Div([dcc.Graph(id='performance-graph',style={'height': '75vh'})], className='graph-container'),
             html.Div([
                 dash_table.DataTable(
                     id='table',
@@ -119,7 +121,7 @@ app.layout = html.Div([
      Input('btn-max', 'n_clicks')]
 )
 
-def update_graph(selected_index,btn_1yr, btn_2yr, btn_4yr, btn_5yr,btn_YtD, btn_max):
+def update_graph(selected_index, Live, btn_YtD, btn_1yr, btn_2yr, btn_4yr, btn_5yr,max):
     # Get the ID of the clicked button
     button_id = get_clicked_button_id()
 
@@ -139,4 +141,5 @@ def update_graph(selected_index,btn_1yr, btn_2yr, btn_4yr, btn_5yr,btn_YtD, btn_
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    server = app.server

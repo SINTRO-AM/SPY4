@@ -395,7 +395,7 @@ def current_results_df(df):
     Annualized_SPY3_return = round((SPY3_return / n_days_since_inception) * 252,2)
     Annualized_SPY_return = round((SPY_return / n_days_since_inception) * 252 ,2)
     Current_NAV_SPY3 = round(current_spy_price * 25,2) 
-    Current_NAV_SPY = round(Buy_Price * 25,2)
+    Current_NAV_SPY = round(current_spy_price * 25,2)
     formatted_NAV_SPY3 = "${:,.0f}".format(Current_NAV_SPY3)
     formatted_NAV_SPY = "${:,.0f}".format(Current_NAV_SPY)
 
